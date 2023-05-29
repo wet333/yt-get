@@ -53,21 +53,21 @@ async function downloadVideo(videoURL) {
 async function downloadVideoAsBase64(videoURL) {
 	try {
 		const videoInfo = await ytdl.getInfo(videoURL);
-		const videoTitle = utils.sanitizeFilename(videoInfo.videoDetails.title);
+        const videoTitle = utils.sanitizeFilename(videoInfo.videoDetails.title);
 
-		return new Promise((resolve, reject) => {
-			const audioStream = ytdl(videoURL, { filter: "audioonly" });
+        return new Promise((resolve, reject) => {
+        const audioStream = ytdl(videoURL, { filter: "audioonly" });
 
-			streamToBuffer(audioStream, (err, buffer) => {
-				if (err) {
-					reject(err);
-				} else {
-					const base64Audio = buffer.toString("base64");
-					console.log("Downloaded " + videoTitle);
-					resolve(base64Audio);
-				}
-			});
-		});
+            streamToBuffer(audioStream, (err, buffer) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    const base64Audio = buffer.toString("base64");
+                    console.log("Downloaded " + videoTitle);
+                    resolve(base64Audio);
+                }
+            });
+        });
 	} catch (error) {
 		console.error(error);
 	}
