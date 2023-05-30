@@ -4,9 +4,10 @@ const { getVideoTitle } = require("../metadata/getVideoTitle");
 async function getVideoMP3Binary(videoURL) {
 	try {
 
+        const videoTitle = await getVideoTitle(videoURL);
+
 		return new Promise((resolve, reject) => {
 			const audioStream = ytdl(videoURL, { filter: "audioonly" });
-            const videoTitle = getVideoTitle(videoURL);
 			const chunks = [];
 
 			audioStream.on("data", (chunk) => {

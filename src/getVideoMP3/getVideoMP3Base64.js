@@ -4,7 +4,7 @@ const ytdl = require("ytdl-core");
 async function getVideoMP3Base64(videoURL) {
 	try {
 		
-        const videoTitle = getVideoTitle(videoURL);
+        const videoTitle = await getVideoTitle(videoURL);
 
         return new Promise((resolve, reject) => {
             const audioStream = ytdl(videoURL, { filter: "audioonly" });
