@@ -3,7 +3,6 @@ const path = require("path");
 const ytdl = require("ytdl-core");
 const ytpl = require("ytpl");
 const utils = require("./utils.js");
-const streamToBuffer = require("stream-to-buffer");
 
 const OUTPUT_FOLDER = path.join(process.cwd(), "music");
 
@@ -30,7 +29,6 @@ async function getPlaylistVideoURLS(playlistURL) {
 	}
 }
 
-// Download YouTube video as MP3
 async function downloadVideo(videoURL) {
 	try {
 		const videoInfo = await ytdl.getInfo(videoURL);
@@ -50,32 +48,8 @@ async function downloadVideo(videoURL) {
 	}
 }
 
-async function downloadVideoAsBase64(videoURL) {
-	try {
-		const videoInfo = await ytdl.getInfo(videoURL);
-        const videoTitle = utils.sanitizeFilename(videoInfo.videoDetails.title);
-
-        return new Promise((resolve, reject) => {
-        const audioStream = ytdl(videoURL, { filter: "audioonly" });
-
-            streamToBuffer(audioStream, (err, buffer) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    const base64Audio = buffer.toString("base64");
-                    console.log("Downloaded " + videoTitle);
-                    resolve(base64Audio);
-                }
-            });
-        });
-	} catch (error) {
-		console.error(error);
-	}
-}
-
 // Lib Exports
 module.exports = {
 	downloadPlaylist,
 	downloadVideo,
-	downloadVideoAsBase64,
 };

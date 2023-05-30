@@ -7,7 +7,7 @@ function sanitizeFilename(filename) {
 	return filename.replace(invalidCharsRegex, replacementChar);
 }
 
-async function createOutputFolder(folderName) {
+function createOutputFolder(folderName) {
 	try {
 		if (!fs.existsSync(folderName)) {
 			fs.mkdirSync(folderName, { recursive: true });
