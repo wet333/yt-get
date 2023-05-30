@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const ytdl = require("ytdl-core");
 const ytpl = require("ytpl");
-const utils = require("./utils.js");
+const utils = require("./../utils.js");
 
 const OUTPUT_FOLDER = path.join(process.cwd(), "music");
 
